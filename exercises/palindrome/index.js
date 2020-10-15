@@ -7,6 +7,23 @@
 //   palindrome("abba") === true
 //   palindrome("abcdefg") === false
 
-function palindrome(str) {}
+function palindrome(str) {
+    const halfway = Math.round(str.length/2)
+    for (let i=0; i<halfway; i++) {
+        if (str[i]!==str[str.length-i-1]) {
+            return false
+        }
+    }
+    return true
+}
+
+// function palindrome(str) {
+//     const halfway = Math.round(str.length/2)
+//     const firstHalf = str.slice(0,halfway).split('')
+//     const secondHalf = str.length%2===0 ? str.slice(halfway,str.length).split('') : str.slice(halfway-1, str.length).split('')
+//     return (firstHalf.reverse().join('')===secondHalf.join(''))
+// }
+
+// palindrome('1000000001')
 
 module.exports = palindrome;
