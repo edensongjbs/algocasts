@@ -17,6 +17,15 @@
 //       '### '
 //       '####'
 
-function steps(n) {}
+function steps(n) {
+    startAr = []
+    for (let i=0; i<n; i++) {
+        startAr.push(' ')
+    }
+    for (let i=0; i<n; i++) {
+        startAr[i]="#"
+        console.log(startAr.join(''))
+    }
+}
 
 module.exports = steps;
