@@ -98,34 +98,42 @@ class LinkedList {
         else {node.next=null}
     }
     insertAt(data, index) {
-        let count=0, node=this.head, lastNode
-        if (!node) {
+        if (!this.head) {
             this.head=new Node(data, null)
             return
         }
         if (index===0) {
             this.head=new Node(data, this.head)
+            return
         }
-        while (node) {
-            if (count===index-1) {
-                if (node.next) {
-                    node.next = new Node(data, node.next)
-                    return
-                }
-                else {node.next= new Node(data, null)}
-            }
-            lastNode=node
-            node=node.next
-            count++
+        let node=this.getAt(index-1), lastNode
+        if (!node) {
+            this.insertLast(data)
+            return
         }
-        lastNode.next=new Node(data, null)
+        if (node.next) {
+            node.next = new Node(data, node.next)
+            return
+        }
+        else {node.next= new Node(data, null)}
+        // lastNode=node
+        // node=node.next
+        // lastNode.next=new Node(data, null)
     }
     forEach(callBack) {
         let count=0, node=this.head
         while (node) {
-            count++
             callBack(node, count)
+            count++
             node=node.next
+        }
+    }
+
+    *[Symbol.iterator]() {
+        let node = this.head
+        while (node) {
+            yield node
+            node = node.next
         }
     }
 
