@@ -28,6 +28,7 @@ class LinkedList {
         return this.head
     }
     getLast() {
+        if (!this.head){return null}
         let node=this.head
         while (node.next) {
             node=node.next
@@ -38,14 +39,14 @@ class LinkedList {
         this.head=null
     }
     removeFirst() {
+        if (!this.head) {return}
         this.head=this.head.next
     }
     removeLast() {
         if (!this.head){return this.head}
         if (!this.head.next){
-            const removing=this.head
             this.head=null
-            return removing
+            return
         }
         let node=this.head
         while (node.next) {
@@ -67,10 +68,10 @@ class LinkedList {
             node=node.next
         }
         node.next = new Node(data, null)
+        //could also do this method by invoking this.getLast()
     }
     getAt(index) {
         let count=0, node=this.head
-        if (!node) {return null}
         while (node) {
             if (count===index) {
                 return node
@@ -81,24 +82,20 @@ class LinkedList {
             node=node.next
             count++
         }
+        return null
     }
     removeAt(index) {
-        let count=0, node=this.head
         if (index===0){
             this.head=this.head ? this.head.next : null
             return
         }
-        while (node) {
-            if (count===index-1) {
-                if (node.next && node.next.next) {
-                    node.next = node.next.next
-                    return
-                }
-                else {node.next=null}
-            }
-            node=node.next
-            count++
+        let node=this.getAt(index-1)
+        if (!node){return}
+        if (node.next && node.next.next) {
+            node.next = node.next.next
+            return
         }
+        else {node.next=null}
     }
     insertAt(data, index) {
         let count=0, node=this.head, lastNode
