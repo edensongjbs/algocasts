@@ -64,7 +64,54 @@ class LinkedList {
         }
         node.next = new Node(data, null)
     }
-    getAt(data)
+    getAt(index) {
+        let count=1, node=this.head
+        while (node) {
+            if (count==index) {
+                return node
+            }
+            if (!node.next){return node.next}
+            node=node.next
+            count++
+        }
+    }
+    removeAt(index) {
+        let count=1, node=this.head
+        while (node) {
+            if (count===index-1) {
+                if (node.next && node.next.next) {
+                    node.next = node.next.next
+                    return
+                }
+                else {node.next=null}
+            }
+            node=node.next
+            count++
+        }
+    }
+    insertAt(data, index) {
+        let count=1, node=this.head
+        while (node) {
+            if (count===index-1) {
+                if (node.next && node.next.next) {
+                    node.next = new Node(data, node.next.next)
+                    return
+                }
+                else {node.next= new Node(data, null)}
+            }
+            node=node.next
+            count++
+        }
+    }
+    forEach(callBack) {
+        let count=0, node=this.head
+        while (node) {
+            count++
+            callBack(node.data, count)
+            node=node.next
+        }
+    }
+
 
 }
 
