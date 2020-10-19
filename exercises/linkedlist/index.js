@@ -3,7 +3,7 @@
 // See 'directions' document
 
 class Node {
-    constructor(data, next) {
+    constructor(data, next = null) {
         this.data=data
         this.next=next
     }
@@ -14,12 +14,7 @@ class LinkedList {
         this.head=null
     }
     insertFirst(data) {
-        const node = new Node(data, null)
-        if (this.head) {
-            node.next=this.head
-            this.head=node
-        }
-        this.head=node
+        this.head = new Node(data, this.head)
     }
     size() {
         let count=0, node=this.head
@@ -75,15 +70,12 @@ class LinkedList {
     }
     getAt(index) {
         let count=0, node=this.head
-        console.log(index, count, node)
         if (!node) {return null}
         while (node) {
             if (count===index) {
-                console.log(node)
                 return node
             }
             if (!node.next){
-                console.log(node.next)
                 return node.next
             }
             node=node.next
@@ -109,24 +101,33 @@ class LinkedList {
         }
     }
     insertAt(data, index) {
-        let count=1, node=this.head
+        let count=0, node=this.head, lastNode
+        if (!node) {
+            this.head=new Node(data, null)
+            return
+        }
+        if (index===0) {
+            this.head=new Node(data, this.head)
+        }
         while (node) {
             if (count===index-1) {
-                if (node.next && node.next.next) {
-                    node.next = new Node(data, node.next.next)
+                if (node.next) {
+                    node.next = new Node(data, node.next)
                     return
                 }
                 else {node.next= new Node(data, null)}
             }
+            lastNode=node
             node=node.next
             count++
         }
+        lastNode.next=new Node(data, null)
     }
     forEach(callBack) {
         let count=0, node=this.head
         while (node) {
             count++
-            callBack(node.data, count)
+            callBack(node, count)
             node=node.next
         }
     }
