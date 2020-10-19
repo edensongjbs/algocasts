@@ -47,6 +47,11 @@ class LinkedList {
     }
     removeLast() {
         if (!this.head){return this.head}
+        if (!this.head.next){
+            const removing=this.head
+            this.head=null
+            return removing
+        }
         let node=this.head
         while (node.next) {
             if (node.next.next) {
@@ -59,24 +64,38 @@ class LinkedList {
     }
     insertLast(data) {
         let node=this.head
+        if (!node) {
+            this.head=new Node(data, null)
+            return
+        }
         while (node.next) {
             node=node.next
         }
         node.next = new Node(data, null)
     }
     getAt(index) {
-        let count=1, node=this.head
+        let count=0, node=this.head
+        console.log(index, count, node)
+        if (!node) {return null}
         while (node) {
-            if (count==index) {
+            if (count===index) {
+                console.log(node)
                 return node
             }
-            if (!node.next){return node.next}
+            if (!node.next){
+                console.log(node.next)
+                return node.next
+            }
             node=node.next
             count++
         }
     }
     removeAt(index) {
-        let count=1, node=this.head
+        let count=0, node=this.head
+        if (index===0){
+            this.head=this.head ? this.head.next : null
+            return
+        }
         while (node) {
             if (count===index-1) {
                 if (node.next && node.next.next) {
