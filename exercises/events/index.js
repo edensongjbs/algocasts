@@ -27,7 +27,7 @@ class Events {
   // Remove all event handlers associated
   // with the given eventName
   off(eventName) {
-    this.evObj[eventName]=[]
+    delete this.evObj[eventName]
   }
 }
 
