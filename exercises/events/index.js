@@ -5,15 +5,30 @@
 
 class Events {
   // Register an event handler
-  on(eventName, callback) {}
+  evObj={}
+  on(eventName, callback) {
+    if (this.evObj[eventName]) {
+      this.evObj[eventName].push(callback)
+    }
+    else {
+      this.evObj[eventName]=[callback]
+    }
+  }
 
   // Trigger all callbacks associated
   // with a given eventName
-  trigger(eventName) {}
+  trigger(eventName) {
+    if (!this.evObj[eventName]){return}
+    this.evObj[eventName].forEach(e => {
+      e()
+    })
+  }
 
   // Remove all event handlers associated
   // with the given eventName
-  off(eventName) {}
+  off(eventName) {
+    this.evObj[eventName]=[]
+  }
 }
 
 module.exports = Events;
