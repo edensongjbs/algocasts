@@ -10,7 +10,6 @@ function bubbleSort(arr) {
                 arr[j] = arr[j+1]
                 arr[j+1] = temp
             }
-            console.log(arr)
         }
     }
     return arr
@@ -30,11 +29,36 @@ function selectionSort(arr) {
 }
 
 function mergeSort(arr) {
-
+    console.log(arr)
+    if (arr.length<=1) {
+        return arr
+    }
+    if (arr.length===2) {
+        return arr[0]>arr[1] ? arr.reverse() : arr
+    }
+    console.log('hello')
+    const halfway=Math.floor(arr.length/2)
+    return merge(mergeSort(arr.slice(0, halfway)), mergeSort(arr.slice(halfway)))
 }
 
 function merge(left, right) {
-
+    console.log(left, right)
+    let merged=[]
+    while (left.length && right.length) {
+        if (left[0] < right[0]) {
+            merged.push(left.shift())
+        }
+        else {
+            merged.push(right.shift())
+        }
+    }
+    if (left.length) {
+        merged.push(...left)
+    }
+    else if (right.length) {
+        merged.push(...right)
+    }
+    return merged
 }
 
 module.exports = { bubbleSort, selectionSort, mergeSort, merge };

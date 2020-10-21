@@ -12,7 +12,6 @@ function validate(node, min = null, max = null) {
         return validate(node.left, min, node.data) && validate(node.right, node.data, max)
     }
     else if (node.left) {
-
         return validate(node.left, min, node.data)
     }
     else if (node.right) {
